@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proceso de Ventas</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Proceso de Ventas</h1>
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="addProduct.html">Agregar Producto</a>
+            <a href="registerInfo.html">Registrar Información</a>
+            <a href="cart.html">Ver Carrito</a>
+        </nav>
+    </header>
+    <section class="form-container">
+        <h2>Selecciona un Producto</h2>
+        <form id="salesForm">
+            <label for="productSelect">Producto:</label>
+            <select id="productSelect" name="productSelect" required>
+                <option value="">Seleccione un producto</option>
+                <!-- Aquí se cargarán los productos disponibles -->
+            </select><br><br>
+
+            <label for="quantity">Cantidad:</label>
+            <input type="number" id="quantity" name="quantity" required min="1" placeholder="Cantidad"><br><br>
+
+            <input type="submit" value="Añadir al Carrito">
+        </form>
+
+        <h2>Productos en el Carrito</h2>
+        <ul id="cartItems"></ul>
+        <button id="checkoutButton" class="hidden">Finalizar Compra</button>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const salesForm = document.getElementById('salesForm');
+            const productSelect = document.getElementById('productSelect');
+            const cartItems = document.getElementById('cartItems');
+            const checkoutButton = document.getElementById('checkoutButton');
+
+            // Cargar productos de localStorage
+            const products = JSON.parse(localStorage.getItem('cartProducts')) || [];
+
+            // Cargar productos al selector
+            products.forEach((product, index) => {
+                const option = document.createElement('option');
+                option.value = index; // Usar el índice para referirse al producto
+                option.textContent = `${product.name} - Precio: $${product.price.toFixed(2)}`;
+                productSelect.appendChild(option);
+            });
+
+            // Añadir al carrito
+            salesForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const selectedProductIndex = productSelect.value;
+                const quantity = document.getElementById('quantity').value;
+
+                // Verificar si se ha seleccionado un producto
+                if (selectedProductIndex === "") {
+                    alert('Por favor, selecciona un producto.');
+                    return;
+                }
+
+                // Recuperar el producto seleccionado
+                const selectedProduct = products[selectedProductIndex];
+
+                // Mostrar en la lista del carrito
+                const listItem = document.createElement('li');
+                listItem.textContent = `${selectedProduct.name} - Cantidad: ${quantity} - Precio Total: $${(selectedProduct.price * quantity).toFixed(2)}`;
+                cartItems.appendChild(listItem);
+
+                // Mostrar botón de finalizar compra
+                checkoutButton.classList.remove('hidden');
+
+                // Limpiar el formulario
+                salesForm.reset();
+            });
+
+            // Función para finalizar la compra
+            checkoutButton.addEventListener('click', function () {
+                alert('Compra finalizada. Gracias por tu compra!');
+                cartItems.innerHTML = ''; // Limpiar carrito
+                checkoutButton.classList.add('hidden'); // Ocultar botón
+            });
+        });
+    </script>
+</body>
+</html>

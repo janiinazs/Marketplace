@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Carrito de Compras</h1>
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="addProduct.html">Agregar Producto</a>
+            <a href="registerInfo.html">Registrar Información</a>
+            <a href="salesProcess.html">Proceso de Ventas</a>
+        </nav>
+    </header>
+    <section class="form-container">
+        <h2>Productos en tu Carrito</h2>
+        <ul id="cartItems"></ul>
+        <p id="emptyMessage" class="hidden">No hay productos en el carrito.</p>
+        </ul>
+    </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const cartItems = document.getElementById('cartItems');
+            const emptyMessage = document.getElementById('emptyMessage');
+
+            // Recuperar productos del localStorage
+            let products = JSON.parse(localStorage.getItem('cartProducts')) || [];
+
+            // Limpiar la lista de productos
+            cartItems.innerHTML = '';
+
+            // Mostrar productos en la lista
+            if (products.length > 0) {
+                products.forEach((product, index) => {
+                    const listItem = document.createElement('li');
+                    listItem.innerHTML = `
+                        ${product.name} - Precio: $${product.price.toFixed(2)} - Descripción: ${product.description}
+                        <button onclick="removeProduct(${index})">Eliminar</button>
+                    `;
+                    cartItems.appendChild(listItem);
+                });
+            } else {
+                emptyMessage.classList.remove('hidden'); // Mostrar mensaje si el carrito está vacío
+            }
+        });
+
+        // Función para eliminar producto del carrito
+        window.removeProduct = function(index) {
+            let products = JSON.parse(localStorage.getItem('cartProducts')) || [];
+            products.splice(index, 1); // Eliminar el producto del array
+            localStorage.setItem('cartProducts', JSON.stringify(products)); // Actualizar localStorage
+
+            // Recargar la página para actualizar la lista
+            location.reload();
+        };
+    </script>
+</body>
+</html>

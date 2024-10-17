@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Producto</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Agregar Producto</h1>
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="cart.html">Ver Carrito</a>
+            <a href="registerInfo.html">Registrar Información</a>
+            <a href="salesProcess.html">Proceso de Ventas</a>
+        </nav>
+    </header>
+    <section class="form-container">
+        <form id="addProductForm">
+            <label for="productName">Nombre del Producto:</label>
+            <input type="text" id="productName" name="productName" required placeholder="Nombre del producto"><br><br>
+            
+            <label for="productPrice">Precio:</label>
+            <input type="number" id="productPrice" name="productPrice" required placeholder="Precio del producto"><br><br>
+            
+            <label for="productDescription">Descripción:</label>
+            <textarea id="productDescription" name="productDescription" required placeholder="Descripción del producto"></textarea><br><br>
+
+            <input type="submit" value="Agregar Producto">
+        </form>
+    </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const addProductForm = document.getElementById('addProductForm');
+
+            addProductForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                
+                const productName = document.getElementById('productName').value.trim();
+                const productPrice = document.getElementById('productPrice').value.trim();
+                const productDescription = document.getElementById('productDescription').value.trim();
+
+                // Validar campos no vacíos
+                if (!productName || !productPrice || !productDescription) {
+                    alert('Por favor, completa todos los campos.');
+                    return;
+                }
+
+                // Obtener productos del localStorage o crear un nuevo array si no existen
+                let products = JSON.parse(localStorage.getItem('cartProducts')) || [];
+
+                // Crear un nuevo objeto de producto
+                const newProduct = {
+                    name: productName,
+                    price: parseFloat(productPrice), // Convertir a número
+                    description: productDescription
+                };
+
+                // Agregar el nuevo producto al array
+                products.push(newProduct);
+
+                // Guardar el array actualizado en localStorage
+                localStorage.setItem('cartProducts', JSON.stringify(products));
+
+                alert('Producto agregado exitosamente.');
+                addProductForm.reset();
+            });
+        });
+    </script>
+</body>
+</html>

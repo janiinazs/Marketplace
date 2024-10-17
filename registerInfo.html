@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Información</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Registro de Información</h1>
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="addProduct.html">Agregar Producto</a>
+            <a href="cart.html">Ver Carrito</a>
+            <a href="salesProcess.html">Proceso de Ventas</a>
+        </nav>
+    </header>
+    <section class="form-container">
+        <form id="registerInfoForm">
+            <label for="entityType">Tipo de Entidad:</label>
+            <select id="entityType" name="entityType" required>
+                <option value="">Seleccione un tipo</option>
+                <option value="cliente">Cliente</option>
+                <option value="proveedor">Proveedor</option>
+            </select><br><br>
+
+            <label for="entityName">Nombre:</label>
+            <input type="text" id="entityName" name="entityName" required placeholder="Nombre de la entidad"><br><br>
+
+            <label for="entityEmail">Correo Electrónico:</label>
+            <input type="email" id="entityEmail" name="entityEmail" required placeholder="ejemplo@correo.com"><br><br>
+
+            <label for="entityPhone">Teléfono:</label>
+            <input type="tel" id="entityPhone" name="entityPhone" required placeholder="Número de teléfono"><br><br>
+
+            <label for="entityAddress">Dirección:</label>
+            <textarea id="entityAddress" name="entityAddress" required placeholder="Dirección de la entidad"></textarea><br><br>
+
+            <input type="submit" value="Registrar Información">
+        </form>
+    </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const registerInfoForm = document.getElementById('registerInfoForm');
+
+            registerInfoForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const entityType = document.getElementById('entityType').value;
+                const entityName = document.getElementById('entityName').value.trim();
+                const entityEmail = document.getElementById('entityEmail').value.trim();
+                const entityPhone = document.getElementById('entityPhone').value.trim();
+                const entityAddress = document.getElementById('entityAddress').value.trim();
+
+                // Validar campos no vacíos
+                if (!entityName || !entityEmail || !entityPhone || !entityAddress) {
+                    alert('Por favor, completa todos los campos.');
+                    return;
+                }
+
+                // Obtener información registrada del localStorage o crear un nuevo array si no existen
+                let entities = JSON.parse(localStorage.getItem('registeredEntities')) || [];
+
+                // Crear un nuevo objeto de entidad
+                const newEntity = {
+                    type: entityType,
+                    name: entityName,
+                    email: entityEmail,
+                    phone: entityPhone,
+                    address: entityAddress
+                };
+
+                // Agregar la nueva entidad al array
+                entities.push(newEntity);
+
+                // Guardar el array actualizado en localStorage
+                localStorage.setItem('registeredEntities', JSON.stringify(entities));
+
+                alert('Información registrada exitosamente.');
+                registerInfoForm.reset();
+            });
+        });
+    </script>
+</body>
+</html>

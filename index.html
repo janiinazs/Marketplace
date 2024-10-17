@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketplace para Productos Locales</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>🌱 MARKETPLACE LOCAL</h1>
+        <nav>
+            <button id="showLogin">Iniciar Sesión</button>
+            <button id="showSignup">Registro</button>
+            <a href="index.html">Inicio</a>
+            <a href="addProduct.html">Agregar Producto</a>
+            <a href="registerInfo.html">Registrar Información</a>
+            <a href="salesProcess.html">Proceso de Ventas</a>
+        </nav>
+    </header>
+    <div class="row hestia-big-title-content">
+        <div class="big-title-slider-content text-center col-sm-8 col-sm-offset-2">
+    <h1 class="hestia-title">EL MARKETPLACE DE  PRODUCTOS  LOCALES</h1>
+                <span class="sub-title">Una plataforma que conecte a productores locales con consumidores, permitiendo a los usuarios comprar y vender productos de su región.</span>
+                <div class="buttons">
+                <a href="https://enviame.io/wp-content/uploads/2023/10/%C2%BFConoces-los-distintos-tipos-de-Marketplace.pdf" title="¿Conoces los distintos tipos de Marketplace?" class="btn btn-primary">¿Conoces los distintos tipos de Marketplace?</a>
+                </div>
+        </div>
+    </div>
+    <section class="form-container" id="formContainer">
+
+        <!-- Formulario de Registro -->
+        <form id="signupForm" class="hidden">
+            <h2>Registro de Usuarios</h2>
+            <label for="username">Nombre de usuario:</label>
+            <input type="text" id="username" name="username" required placeholder="Tu nombre aquí"><br><br>
+            
+            <label for="email">Correo Electrónico:</label>
+            <input type="email" id="email" name="email" required placeholder="ejemplo@correo.com"><br><br>
+            
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" name="password" required placeholder="Tu contraseña"><br><br>
+
+            <label for="confirmPassword">Confirmar Contraseña:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Repite tu contraseña"><br><br>
+
+            <label for="userType">Tipo de Usuario:</label>
+            <select id="userType" name="userType" required>
+                <option value="">Seleccione un tipo</option>
+                <option value="consumer">Consumidor</option>
+                <option value="producer">Productor</option>
+            </select><br><br>
+
+            <input type="submit" value="Registrarse">
+        </form>
+
+        <!-- Formulario de Inicio de Sesión -->
+        <form id="loginForm" class="hidden">
+            <h2>Iniciar Sesión</h2>
+            <label for="loginEmail">Correo Electrónico:</label>
+            <input type="email" id="loginEmail" name="loginEmail" required placeholder="ejemplo@correo.com"><br><br>
+            
+            <label for="loginPassword">Contraseña:</label>
+            <input type="password" id="loginPassword" name="loginPassword" required placeholder="Tu contraseña"><br><br>
+
+            <input type="submit" value="Iniciar Sesión">
+        </form>
+
+        <!-- Opciones para Consumidor y Productor -->
+        <div id="userOptions" class="hidden">
+        <h2>Bienvenido, <span id="welcomeUser"></span>!</h2>
+        <button id="buyProducts">🛒 Comprar Productos</button>
+        <button id="sellProducts">💼 Vender Productos</button>
+
+        <a href="addProduct.html" id="addProductLink" class="hidden">Agregar Producto</a>
+        <a href="cart.html" id="cartLink" class="hidden">Ver Carrito</a>
+        </div>
+    </section>
+
+    <!-- Script externo para validaciones -->
+    <script src="validations.js"></script>
+    <footer>
+        <p>&copy; 2024 Marketplace de Productos Locales. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>
